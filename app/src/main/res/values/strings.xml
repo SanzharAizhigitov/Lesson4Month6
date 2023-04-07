@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lesson4Month6</string>
+    <string name="no_inet">No Internet Connection</string>
+    <string name="try_again">Try again</string>
+</resources>
