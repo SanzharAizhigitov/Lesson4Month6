@@ -10,4 +10,5 @@
     <color name="red">#FF0000</color>
     <color name="forTitle">#333333</color>
     <color name="forSeries">#151515</color>
+    <color name="none">#00151515</color>
 </resources>

@@ -1,6 +1,7 @@
-package com.geektech.lesson4month6.remote
+package com.geektech.lesson4month6.core.network
 
 import com.geektech.lesson4month6.BuildConfig
+import com.geektech.lesson4month6.data.remote.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

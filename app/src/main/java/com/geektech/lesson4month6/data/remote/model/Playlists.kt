@@ -1,4 +1,4 @@
-package com.geektech.lesson4month6.model
+package com.geektech.lesson4month6.data.remote.model
 
 data class Playlists(
     val etag: String,

@@ -1,6 +1,6 @@
-package com.geektech.lesson4month6.remote
+package com.geektech.lesson4month6.data.remote
 
-import com.geektech.lesson4month6.model.Playlists
+import com.geektech.lesson4month6.data.remote.model.Playlists
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

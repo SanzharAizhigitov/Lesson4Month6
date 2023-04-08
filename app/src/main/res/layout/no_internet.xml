@@ -6,26 +6,18 @@
 
     <Button
         android:layout_width="328dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="32dp"/>
-    <TextView
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="37dp"
-        android:layout_width="72dp"
-        android:layout_height="wrap_content"
         android:text="Try again"
         android:textSize="16dp"
-        android:gravity="center"
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:fontFamily="@font/notosans_regular"
-        />
+        android:layout_marginBottom="32dp"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,17 +1,16 @@
-package com.geektech.lesson4month6.playlistrv.adapter
+package com.geektech.lesson4month6.ui.playlists.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.geektech.lesson4month6.MainViewModel
 import com.geektech.lesson4month6.databinding.PlaylistItemBinding
-import com.geektech.lesson4month6.ext.loadImage
-import com.geektech.lesson4month6.model.Item
-import com.geektech.lesson4month6.model.Playlists
+import com.geektech.lesson4month6.core.ext.loadImage
+import com.geektech.lesson4month6.data.remote.model.Item
 
-class PlaylistAdapter(private val onClick: (Item) -> Unit) : Adapter<PlaylistAdapter.PlaylistViewHolder>() {
+class PlaylistAdapter(private val onClick: (Item) -> Unit) :
+    Adapter<PlaylistAdapter.PlaylistViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
     fun setList(liste: List<Item>) {
         this.list = liste as ArrayList<Item>
@@ -43,13 +42,11 @@ class PlaylistAdapter(private val onClick: (Item) -> Unit) : Adapter<PlaylistAda
         fun bind(item: Item) {
             binding.videoIv.loadImage(item.snippet.thumbnails.default.url)
             binding.titleTv.text = item.snippet.title
-            binding.seriesTv.text = "${item.contentDetails.itemCount} + video series"
+            binding.seriesTv.text = "${item.contentDetails.itemCount} video series"
             binding.item.setOnClickListener {
-onClick.invoke(item)
+                onClick.invoke(item)
             }
         }
-
-
     }
-
 }
+
