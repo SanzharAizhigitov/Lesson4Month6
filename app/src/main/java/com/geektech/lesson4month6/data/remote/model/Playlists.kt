@@ -8,8 +8,13 @@ data class Playlists(
     val pageInfo: PageInfo
 )
 
+data class PlaylistItem(
+    val items: List<Item>,
+)
+
 data class ContentDetails(
-    val itemCount: Int
+    val itemCount: Int,
+    val videoId : String
 )
 
 data class Default(
@@ -17,6 +22,13 @@ data class Default(
     val url: String,
     val width: Int
 )
+
+data class PlaylistInfo(
+    val id : String,
+    val title : String,
+    val desc : String,
+    val itemCount : Int
+) : java.io.Serializable
 
 data class High(
     val height: Int,
@@ -31,6 +43,7 @@ data class Item(
     val kind: String,
     val snippet: Snippet
 )
+
 
 data class Localized(
     val description: String,

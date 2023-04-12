@@ -27,14 +27,12 @@ class ConnectionLiveData(private val connectivityManager: ConnectivityManager):L
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onActive() {
         super.onActive()
         val builder = NetworkRequest.Builder()
         connectivityManager.registerNetworkCallback(builder.build(), networkCallback)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onInactive() {
         super.onInactive()
         connectivityManager.unregisterNetworkCallback(networkCallback)

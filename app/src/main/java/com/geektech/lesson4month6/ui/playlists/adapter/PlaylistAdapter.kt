@@ -9,7 +9,7 @@ import com.geektech.lesson4month6.databinding.PlaylistItemBinding
 import com.geektech.lesson4month6.core.ext.loadImage
 import com.geektech.lesson4month6.data.remote.model.Item
 
-class PlaylistAdapter(private val onClick: (Item) -> Unit) :
+class PlaylistAdapter(val onCLick: (position: Int) -> Unit) :
     Adapter<PlaylistAdapter.PlaylistViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
     fun setList(liste: List<Item>) {
@@ -30,7 +30,7 @@ class PlaylistAdapter(private val onClick: (Item) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], position)
     }
 
     override fun getItemCount(): Int {
@@ -39,12 +39,12 @@ class PlaylistAdapter(private val onClick: (Item) -> Unit) :
 
     inner class PlaylistViewHolder(private val binding: PlaylistItemBinding) :
         ViewHolder(binding.root) {
-        fun bind(item: Item) {
+        fun bind(item: Item, pos:Int) {
             binding.videoIv.loadImage(item.snippet.thumbnails.default.url)
             binding.titleTv.text = item.snippet.title
             binding.seriesTv.text = "${item.contentDetails.itemCount} video series"
             binding.item.setOnClickListener {
-                onClick.invoke(item)
+                onCLick.invoke(pos)
             }
         }
     }

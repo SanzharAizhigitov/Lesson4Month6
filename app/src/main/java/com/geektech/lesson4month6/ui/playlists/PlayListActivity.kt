@@ -12,11 +12,13 @@ import com.geektech.lesson4month6.core.network.isOnline.ConnectionLiveData
 import com.geektech.lesson4month6.core.network.result.Status
 import com.geektech.lesson4month6.ui.videos.VideosActivity
 import com.geektech.lesson4month6.core.ui.BaseActivity
+import com.geektech.lesson4month6.data.remote.model.PlaylistInfo
 import com.geektech.lesson4month6.databinding.ActivityPlaylistsBinding
 import com.geektech.lesson4month6.ui.playlists.adapter.PlaylistAdapter
 
 class PlayListActivity : BaseActivity<ActivityPlaylistsBinding, PlaylistsViewModel>(){
-    private var adapter: PlaylistAdapter? = null
+    private val adapter: PlaylistAdapter by lazy { PlaylistAdapter(this::onClick) }
+    private var playlistData = listOf<Item>()
     override val viewModel: PlaylistsViewModel by lazy {
         ViewModelProvider(this)[PlaylistsViewModel::class.java]
     }
@@ -37,7 +39,6 @@ class PlayListActivity : BaseActivity<ActivityPlaylistsBinding, PlaylistsViewMod
 
     override fun initRV() {
         super.initRV()
-        adapter = PlaylistAdapter(this::onClick)
         binding.rvPlaylist.layoutManager = LinearLayoutManager(this)
     }
 
@@ -68,10 +69,17 @@ class PlayListActivity : BaseActivity<ActivityPlaylistsBinding, PlaylistsViewMod
         return ActivityPlaylistsBinding.inflate(layoutInflater)
     }
 
-    fun onClick(item: Item) {
-        val intent = Intent(this@PlayListActivity, VideosActivity::class.java)
-        intent.putExtra("id", item.snippet.title)
-        Toast.makeText(this, item.snippet.title, Toast.LENGTH_SHORT).show()
+    private fun onClick(position: Int): Unit {
+        val intent = Intent(this, VideosActivity::class.java)
+        intent.putExtra(
+            "VIDEOS_KEY",
+            PlaylistInfo(
+                playlistData[position].id,
+                playlistData[position].snippet.title,
+                playlistData[position].snippet.description,
+                playlistData[position].contentDetails.itemCount
+            )
+        )
         startActivity(intent)
     }
 }
