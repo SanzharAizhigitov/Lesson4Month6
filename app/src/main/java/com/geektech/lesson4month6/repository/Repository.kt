@@ -21,7 +21,7 @@ class Repository {
             response
         )
     }
-    fun getPlaylistItems(playlistId: String, itemCount: Int): LiveData<Resource<PlaylistItem>> =
+    fun getVideos(playlistId: String, itemCount: Int): LiveData<Resource<PlaylistItem>> =
         liveData(Dispatchers.IO) {
             emit(Resource.loading())
             val response = dataSource.getPlaylistItems(playlistId, itemCount)

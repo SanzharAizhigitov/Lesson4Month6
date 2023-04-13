@@ -12,8 +12,8 @@ class VideosViewModel : BaseViewModel() {
     private val mutableVideosId: MutableLiveData<List<String>> = MutableLiveData()
     val liveVideosId: LiveData<List<String>> = mutableVideosId
 
-    fun getPlaylistItems(playlistId: String, itemCount: Int): LiveData<Resource<PlaylistItem>> {
-        return App.repository.getPlaylistItems(playlistId, itemCount)
+    fun getVideos(playlistId: String, itemCount: Int): LiveData<Resource<PlaylistItem>> {
+        return App.repository.getVideos(playlistId, itemCount)
     }
 
     fun getVideosId(data: List<Item>) {

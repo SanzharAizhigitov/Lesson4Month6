@@ -1,12 +1,10 @@
 package com.geektech.lesson4month6.ui.videos
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.geektech.lesson4month6.R
 import com.geektech.lesson4month6.core.network.isOnline.ConnectionLiveData
 import com.geektech.lesson4month6.core.network.result.Status
 import com.geektech.lesson4month6.core.ui.BaseActivity
@@ -14,7 +12,6 @@ import com.geektech.lesson4month6.data.remote.model.Item
 import com.geektech.lesson4month6.data.remote.model.PlaylistInfo
 import com.geektech.lesson4month6.databinding.ActivityVideosBinding
 import com.geektech.lesson4month6.ui.playlists.PlayListActivity
-import com.geektech.lesson4month6.ui.playlists.PlaylistsViewModel
 import com.geektech.lesson4month6.ui.videos.adapter.VideosAdapter
 
 class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
@@ -48,11 +45,11 @@ class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
     override fun initViewModel() {
         super.initViewModel()
         viewModel = ViewModelProvider(this)[VideosViewModel::class.java]
-        getPlaylistItems()
+        getVideos()
     }
 
-    private fun getPlaylistItems() {
-        viewModel.getPlaylistItems(playlistInfo.id, playlistInfo.itemCount).observe(this) {
+    private fun getVideos() {
+        viewModel.getVideos(playlistInfo.id, playlistInfo.itemCount).observe(this) {
             when (it.status) {
                 Status.SUCCESS -> {
                     playlistItemData = it.data!!.items
