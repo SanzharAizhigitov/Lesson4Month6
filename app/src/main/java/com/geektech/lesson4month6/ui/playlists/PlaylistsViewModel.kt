@@ -5,9 +5,10 @@ import com.geektech.lesson4month6.App
 import com.geektech.lesson4month6.core.ui.BaseViewModel
 import com.geektech.lesson4month6.data.remote.model.Playlists
 import com.geektech.lesson4month6.core.network.result.Resource
+import com.geektech.lesson4month6.repository.Repository
 
-class PlaylistsViewModel : BaseViewModel() {
+class PlaylistsViewModel(private val repository: Repository) : BaseViewModel() {
     fun getPlayLists(): LiveData<Resource<Playlists>> {
-        return App.repository.getPlayLists()
+        return repository.getPlayLists()
     }
 }

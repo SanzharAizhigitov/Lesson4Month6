@@ -5,9 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.geektech.lesson4month6.data.remote.model.Item
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geektech.lesson4month6.App
 import com.geektech.lesson4month6.core.network.isOnline.ConnectionLiveData
 import com.geektech.lesson4month6.core.network.result.Status
 import com.geektech.lesson4month6.ui.videos.VideosActivity
@@ -15,17 +13,16 @@ import com.geektech.lesson4month6.core.ui.BaseActivity
 import com.geektech.lesson4month6.data.remote.model.PlaylistInfo
 import com.geektech.lesson4month6.databinding.ActivityPlaylistsBinding
 import com.geektech.lesson4month6.ui.playlists.adapter.PlaylistAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayListActivity : BaseActivity<ActivityPlaylistsBinding, PlaylistsViewModel>(){
     private val adapter: PlaylistAdapter by lazy { PlaylistAdapter(this::onClick) }
-    private var playlistData = listOf<Item>()
-    override val viewModel: PlaylistsViewModel by lazy {
-        ViewModelProvider(this)[PlaylistsViewModel::class.java]
-    }
+
+    override val viewModel: PlaylistsViewModel by viewModel()
 
     override fun checkConnection() {
         super.checkConnection()
-        var connection = ConnectionLiveData(application)
+        val connection = ConnectionLiveData(application)
         connection.observe(this) { isConnected ->
             if (isConnected) {
                 binding.rvPlaylist.visibility = View.VISIBLE
@@ -51,7 +48,7 @@ class PlayListActivity : BaseActivity<ActivityPlaylistsBinding, PlaylistsViewMod
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.rvPlaylist.adapter = adapter
-                    it.data?.let { it1 -> adapter?.setList(it1.items) }
+                    it.data?.let { it1 -> adapter.setList(it1.items) }
                     viewModel.loading.postValue(false)
                 }
                 Status.LOADING -> {
@@ -69,15 +66,15 @@ class PlayListActivity : BaseActivity<ActivityPlaylistsBinding, PlaylistsViewMod
         return ActivityPlaylistsBinding.inflate(layoutInflater)
     }
 
-    private fun onClick(position: Int): Unit {
+    private fun onClick(item: Item) {
         val intent = Intent(this, VideosActivity::class.java)
         intent.putExtra(
             "VIDEOS_KEY",
             PlaylistInfo(
-                playlistData[position].id,
-                playlistData[position].snippet.title,
-                playlistData[position].snippet.description,
-                playlistData[position].contentDetails.itemCount
+                item.id,
+                item.snippet.title,
+                item.snippet.description,
+                item.contentDetails.itemCount
             )
         )
         startActivity(intent)

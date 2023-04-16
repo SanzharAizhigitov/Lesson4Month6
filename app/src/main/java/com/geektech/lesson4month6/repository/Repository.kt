@@ -9,10 +9,8 @@ import com.geektech.lesson4month6.data.remote.model.PlaylistItem
 import com.geektech.lesson4month6.data.remote.model.Playlists
 import kotlinx.coroutines.Dispatchers
 
-class Repository {
-    private val dataSource: RemoteDataSource by lazy {
-        RemoteDataSource()
-    }
+class Repository(private val dataSource: RemoteDataSource) {
+
 
     fun getPlayLists(): LiveData<Resource<Playlists>> = liveData(Dispatchers.IO) {
         emit(Resource.loading())

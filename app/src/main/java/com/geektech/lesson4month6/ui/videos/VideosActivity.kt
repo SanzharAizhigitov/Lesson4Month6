@@ -11,16 +11,17 @@ import com.geektech.lesson4month6.core.ui.BaseActivity
 import com.geektech.lesson4month6.data.remote.model.Item
 import com.geektech.lesson4month6.data.remote.model.PlaylistInfo
 import com.geektech.lesson4month6.databinding.ActivityVideosBinding
+import com.geektech.lesson4month6.ui.player.PLayerActivity
 import com.geektech.lesson4month6.ui.playlists.PlayListActivity
 import com.geektech.lesson4month6.ui.videos.adapter.VideosAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
-    private val adapter by lazy { VideosAdapter() }
-
+    private val adapter by lazy { VideosAdapter(this::onCLick) }
     private val playlistInfo by lazy { intent.getSerializableExtra("VIDEOS_KEY") as PlaylistInfo }
     private var playlistItemData = listOf<Item>()
     private var videosId = arrayListOf<String>()
-    override lateinit var viewModel: VideosViewModel
+    override val viewModel: VideosViewModel by viewModel()
 
     override fun checkConnection() {
         super.checkConnection()
@@ -40,11 +41,11 @@ class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
         binding.videosRv.adapter = adapter
         binding.titleTv.text = playlistInfo.title
         binding.descTv.text = playlistInfo.desc
+        binding.tvCounterVideo.text = "${playlistInfo.itemCount} video series "
     }
 
     override fun initViewModel() {
         super.initViewModel()
-        viewModel = ViewModelProvider(this)[VideosViewModel::class.java]
         getVideos()
     }
 
@@ -70,16 +71,28 @@ class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
             videosId.addAll(it)
         }
     }
-        override fun inflateViewBinding(): ActivityVideosBinding {
-            return ActivityVideosBinding.inflate(layoutInflater)
-        }
 
-        override fun initListener() {
-            super.initListener()
-            val intentBack = Intent(this@VideosActivity, PlayListActivity::class.java)
-            binding.backTv.setOnClickListener { finish() }
-            binding.backImg.setOnClickListener { finish() }
-            val result = intent.getStringExtra("id")
-            Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+    override fun inflateViewBinding(): ActivityVideosBinding {
+        return ActivityVideosBinding.inflate(layoutInflater)
+    }
+
+    override fun initListener() {
+        super.initListener()
+        binding.backTv.setOnClickListener { finish() }
+        binding.backImg.setOnClickListener { finish() }
+    }
+
+    private fun onCLick(item: Item) {
+        Intent(this@VideosActivity, PLayerActivity::class.java).apply {
+            putExtra(
+                "PLAYER_KEY", PlaylistInfo(
+                    item.id,
+                    item.snippet.title,
+                    item.snippet.description,
+                    item.contentDetails.itemCount
+                )
+            )
+            startActivity(this)
         }
     }
+}
