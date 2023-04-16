@@ -10,6 +10,7 @@ import com.geektech.lesson4month6.core.network.result.Status
 import com.geektech.lesson4month6.core.ui.BaseActivity
 import com.geektech.lesson4month6.data.remote.model.Item
 import com.geektech.lesson4month6.data.remote.model.PlaylistInfo
+import com.geektech.lesson4month6.data.remote.model.VideoInfo
 import com.geektech.lesson4month6.databinding.ActivityVideosBinding
 import com.geektech.lesson4month6.ui.player.PLayerActivity
 import com.geektech.lesson4month6.ui.playlists.PlayListActivity
@@ -85,11 +86,9 @@ class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
     private fun onCLick(item: Item) {
         Intent(this@VideosActivity, PLayerActivity::class.java).apply {
             putExtra(
-                "PLAYER_KEY", PlaylistInfo(
+                "PLAYER_KEY", VideoInfo(
                     item.id,
-                    item.snippet.title,
-                    item.snippet.description,
-                    item.contentDetails.itemCount
+                    item.snippet.title
                 )
             )
             startActivity(this)

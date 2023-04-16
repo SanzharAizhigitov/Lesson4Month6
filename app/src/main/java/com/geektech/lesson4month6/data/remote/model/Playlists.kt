@@ -30,6 +30,10 @@ data class PlaylistInfo(
     val desc : String,
     val itemCount : Int
 ) : java.io.Serializable
+data class VideoInfo(
+    val title : String,
+    val desc : String
+) : java.io.Serializable
 
 data class High(
     val height: Int,
