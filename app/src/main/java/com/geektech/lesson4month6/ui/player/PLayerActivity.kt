@@ -2,11 +2,12 @@ package com.geektech.lesson4month6.ui.player
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.geektech.lesson4month6.core.network.isOnline.ConnectionLiveData
+import com.geektech.lesson4month6.core.network.result.Status
 import com.geektech.lesson4month6.core.ui.BaseActivity
-import com.geektech.lesson4month6.data.remote.model.PlaylistInfo
-import com.geektech.lesson4month6.data.remote.model.VideoInfo
 import com.geektech.lesson4month6.databinding.ActivityPlayerBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -51,17 +52,30 @@ class PLayerActivity  : BaseActivity<ActivityPlayerBinding, PlayerViewModel>() {
             player.play()
         }
     }
-
+    private fun getVideos() {
+        viewModel.getVideo(intent.getStringExtra("VIDEO_KEY")!!).observe(this) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.titleTv.text =it.data?.item?.snippet?.title
+                    binding.descTv.text =it.data?.item?.snippet?.description
+                }
+                Status.ERROR -> {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> Log.e("aga", "LOADING: ")
+            }
+        }
+    }
 
     override fun initView() {
         super.initView()
-        initViewWithParam(intent.getSerializableExtra("PLAYER_KEY") as VideoInfo)
     }
 
-    private fun initViewWithParam(video: VideoInfo) {
-        binding.titleTv.text = video.title
-        binding.descTv.text = video.desc
+    override fun initViewModel() {
+        super.initViewModel()
+        getVideos()
     }
+
 
 
 }

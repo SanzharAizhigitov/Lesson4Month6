@@ -12,17 +12,28 @@ val remoteDataSource = module {
     factory { RemoteDataSource(get()) }
 }
 
-class RemoteDataSource(private val apiService: ApiService): BaseDataSource() {
+class RemoteDataSource(private val apiService: ApiService) : BaseDataSource() {
 
     suspend fun getPlayLists(): Resource<Playlists> = getResult {
-            apiService.getPlayLists( BuildConfig.API_KEY, Const.part, Const.channelId)
-        }
+        apiService.getPlayLists(BuildConfig.API_KEY, Const.part, Const.channelId)
+    }
+
     suspend fun getPlaylistItems(playlistId: String, itemCount: Int): Resource<PlaylistItem> {
         return getResult {
-            apiService.getPlaylistItems(BuildConfig.API_KEY,
+            apiService.getPlaylistItems(
+                BuildConfig.API_KEY,
                 Const.part,
                 playlistId,
-                itemCount)
+                itemCount
+            )
         }
     }
+
+    suspend fun getVideo(id: String?) = getResult {
+        apiService.getVideo(
+            BuildConfig.API_KEY,
+            Const.part,
+            id!!
+        )
     }
+}

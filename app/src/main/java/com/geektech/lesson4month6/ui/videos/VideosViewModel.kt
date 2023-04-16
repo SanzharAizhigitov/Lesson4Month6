@@ -10,18 +10,8 @@ import com.geektech.lesson4month6.data.remote.model.PlaylistItem
 import com.geektech.lesson4month6.repository.Repository
 
 class VideosViewModel(private val repository: Repository) : BaseViewModel() {
-    private val mutableVideosId: MutableLiveData<List<String>> = MutableLiveData()
-    val liveVideosId: LiveData<List<String>> = mutableVideosId
 
     fun getVideos(playlistId: String, itemCount: Int): LiveData<Resource<PlaylistItem>> {
         return repository.getVideos(playlistId, itemCount)
-    }
-
-    fun getVideosId(data: List<Item>) {
-        val result = arrayListOf<String>()
-        for (i in data) {
-            result.add(i.contentDetails.videoId)
-        }
-        mutableVideosId.value = (result)
     }
 }

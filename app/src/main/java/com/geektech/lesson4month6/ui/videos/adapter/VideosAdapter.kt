@@ -8,7 +8,7 @@ import com.geektech.lesson4month6.core.ext.loadImage
 import com.geektech.lesson4month6.data.remote.model.Item
 import com.geektech.lesson4month6.databinding.VideosItemBinding
 
-class VideosAdapter(private val onClick: (item: Item) -> Unit) :
+class VideosAdapter(private val onClick: (id:String) -> Unit) :
     RecyclerView.Adapter<VideosAdapter.PlaylistItemViewHolder>() {
     private val data = arrayListOf<Item>()
 
@@ -43,7 +43,7 @@ class VideosAdapter(private val onClick: (item: Item) -> Unit) :
             with(binding) {
                 image.loadImage(item.snippet.thumbnails.medium.url)
                 titleTv.text = item.snippet.title
-                itemView.setOnClickListener { onClick(item) }
+                itemView.setOnClickListener { onClick(item.id) }
             }
         }
     }
