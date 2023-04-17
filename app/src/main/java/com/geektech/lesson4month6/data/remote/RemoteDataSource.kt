@@ -5,6 +5,7 @@ import com.geektech.lesson4month6.core.network.BaseDataSource
 import com.geektech.lesson4month6.core.network.result.Resource
 import com.geektech.lesson4month6.data.remote.model.PlaylistItem
 import com.geektech.lesson4month6.data.remote.model.Playlists
+import com.geektech.lesson4month6.data.remote.model.Video
 import com.geektech.lesson4month6.utils.Const
 import org.koin.dsl.module
 
@@ -29,11 +30,13 @@ class RemoteDataSource(private val apiService: ApiService) : BaseDataSource() {
         }
     }
 
-    suspend fun getVideo(id: String?) = getResult {
-        apiService.getVideo(
-            BuildConfig.API_KEY,
-            Const.part,
-            id!!
-        )
+    suspend fun getVideo(id: String): Resource<Video> {
+       return getResult {
+            apiService.getVideo(
+                BuildConfig.API_KEY,
+                Const.part,
+                id
+            )
+        }
     }
 }

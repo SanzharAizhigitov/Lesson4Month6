@@ -23,9 +23,9 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
     }
 
     open fun initRV() {}
-    open fun initViewModel() {} // инициализация вьюмодэла
-    open fun checkConnection() {} // проверка на интернет
-    open fun initView() {} // инициализация вьюшек
-    open fun initListener() {} // обработка всех кликов
+    open fun initViewModel() {}
+    open fun checkConnection() {}
+    open fun initView() {}
+    open fun initListener() {}
 }
 

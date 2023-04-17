@@ -43,7 +43,7 @@ class VideosAdapter(private val onClick: (id:String) -> Unit) :
             with(binding) {
                 image.loadImage(item.snippet.thumbnails.medium.url)
                 titleTv.text = item.snippet.title
-                itemView.setOnClickListener { onClick(item.id) }
+                itemView.setOnClickListener { onClick(item.contentDetails.videoId) }
             }
         }
     }

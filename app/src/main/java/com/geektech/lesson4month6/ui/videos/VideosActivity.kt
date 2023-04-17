@@ -73,7 +73,7 @@ class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
 
     private fun onCLick(id: String) {
         Intent(this@VideosActivity, PLayerActivity::class.java).apply {
-            intent.putExtra("VIDEO_KEY", id)
+            intent.putExtra(PLayerActivity.VIDEO_KEY, id)
             startActivity(this)
         }
     }

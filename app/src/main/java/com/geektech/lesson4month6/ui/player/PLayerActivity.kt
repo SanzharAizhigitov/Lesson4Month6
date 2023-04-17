@@ -15,7 +15,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PLayerActivity  : BaseActivity<ActivityPlayerBinding, PlayerViewModel>() {
-
+companion object{
+   val VIDEO_KEY = "VIDEO_KEY"
+}
     override val viewModel: PlayerViewModel by viewModel()
     private lateinit var player: ExoPlayer
 
@@ -42,8 +44,13 @@ class PLayerActivity  : BaseActivity<ActivityPlayerBinding, PlayerViewModel>() {
             }
         }
     }
-
-
+    override fun initViewModel() {
+        super.initViewModel()
+        getVideo()
+    }
+    override fun initView() {
+        super.initView()
+    }
     override fun initListener() {
         super.initListener()
         binding.backTv.setOnClickListener { finish() }
@@ -53,11 +60,11 @@ class PLayerActivity  : BaseActivity<ActivityPlayerBinding, PlayerViewModel>() {
         }
     }
     private fun getVideo() {
-        viewModel.getVideo(intent.getStringExtra("VIDEO_KEY")!!).observe(this) {
+        viewModel.getVideo(intent.getStringExtra(VIDEO_KEY)!!).observe(this) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    binding.titleTv.text =it.data?.item?.snippet?.title
-                    binding.descTv.text =it.data?.item?.snippet?.description
+                    binding.titleTv.text =it.data!!.items[0].snippet.title
+                    binding.descTv.text =it.data!!.items[0].snippet.description
                 }
                 Status.ERROR -> {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
@@ -66,16 +73,4 @@ class PLayerActivity  : BaseActivity<ActivityPlayerBinding, PlayerViewModel>() {
             }
         }
     }
-
-    override fun initView() {
-        super.initView()
-    }
-
-    override fun initViewModel() {
-        super.initViewModel()
-        getVideo()
-    }
-
-
-
 }

@@ -15,7 +15,6 @@ data class PlaylistItem(
 data class ContentDetails(
     val itemCount: Int,
     val videoId : String
-
 )
 
 data class Default(
@@ -92,5 +91,7 @@ data class Thumbnails(
     val standard: Standard
 )
 data class Video(
-    val item:Item,
+    val etag: String,
+    val items: List<Item>,
+    val kind: String,
 )
