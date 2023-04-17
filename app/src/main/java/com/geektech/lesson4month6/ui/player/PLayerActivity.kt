@@ -52,7 +52,7 @@ class PLayerActivity  : BaseActivity<ActivityPlayerBinding, PlayerViewModel>() {
             player.play()
         }
     }
-    private fun getVideos() {
+    private fun getVideo() {
         viewModel.getVideo(intent.getStringExtra("VIDEO_KEY")!!).observe(this) {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -73,7 +73,7 @@ class PLayerActivity  : BaseActivity<ActivityPlayerBinding, PlayerViewModel>() {
 
     override fun initViewModel() {
         super.initViewModel()
-        getVideos()
+        getVideo()
     }
 
 
