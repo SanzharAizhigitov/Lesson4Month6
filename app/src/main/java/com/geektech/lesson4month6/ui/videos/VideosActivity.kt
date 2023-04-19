@@ -73,9 +73,9 @@ class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
 
     private fun onCLick(item:Item) {
         val intent = Intent(this, PLayerActivity::class.java)
-        intent.putExtra("id", item.id)
-        intent.putExtra("title", item.snippet?.title)
-        intent.putExtra("desc", item.snippet?.description)
+        intent.putExtra("id", item.contentDetails.videoId)
+        intent.putExtra("title", item.snippet.title)
+        intent.putExtra("desc", item.snippet.description)
         startActivity(intent)
         }
     }

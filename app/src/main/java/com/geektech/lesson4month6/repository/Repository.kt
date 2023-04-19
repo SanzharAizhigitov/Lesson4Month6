@@ -26,6 +26,7 @@ class Repository(private val dataSource: RemoteDataSource) {
             val response = dataSource.getPlaylistItems(playlistId, itemCount)
             emit(response)
         }
+
     fun getVideo(id: String): LiveData<Resource<Video>> {
         return liveData(Dispatchers.IO) {
             emit(Resource.loading())

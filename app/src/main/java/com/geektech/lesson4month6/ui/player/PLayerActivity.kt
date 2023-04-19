@@ -1,22 +1,14 @@
 package com.geektech.lesson4month6.ui.player
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Build
-import android.util.AttributeSet
-import android.util.Log
 import android.util.SparseArray
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.geektech.lesson4month6.R
 import com.geektech.lesson4month6.core.network.isOnline.ConnectionLiveData
-import com.geektech.lesson4month6.core.network.result.Status
 import com.geektech.lesson4month6.core.ui.BaseActivity
 import com.geektech.lesson4month6.databinding.ActivityPlayerBinding
 import com.google.android.exoplayer2.ExoPlayer
@@ -36,10 +28,22 @@ companion object{
     override val viewModel:  PlayerViewModel by viewModel()
 
     private fun initializePlayer() {
+        val  youtubeLink = "http://youtube.com/watch?v=${intent.getStringExtra("id")}"
+
+//        object : YouTubeExtractor(this) {
+//            fun onExtractionComplete(ytFiles: SparseArray<YtFile>?, vMeta: VideoMeta?) {
+//                if (ytFiles != null) {
+//                    val itag = 22
+//                    val downloadUrl: String = ytFiles[itag].getUrl()
+//                }
+//            }
+//        }.extract(youtubeLink)
+
+
         player = ExoPlayer.Builder(this)
             .build()
             .also { exoPlayer ->
-                binding.player.player = exoPlayer
+                binding.video.player = exoPlayer
                 val mediaItem = MediaItem.fromUri("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4")
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.prepare()
@@ -98,7 +102,7 @@ companion object{
     @SuppressLint("InlinedApi")
     private fun hideSystemUi() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, binding.player).let { controller ->
+        WindowInsetsControllerCompat(window, binding.video).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
