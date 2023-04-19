@@ -71,10 +71,11 @@ class VideosActivity : BaseActivity<ActivityVideosBinding, VideosViewModel>() {
         binding.backImg.setOnClickListener { finish() }
     }
 
-    private fun onCLick(id: String) {
-        Intent(this@VideosActivity, PLayerActivity::class.java).apply {
-            intent.putExtra(PLayerActivity.VIDEO_KEY, id)
-            startActivity(this)
+    private fun onCLick(item:Item) {
+        val intent = Intent(this, PLayerActivity::class.java)
+        intent.putExtra("id", item.id)
+        intent.putExtra("title", item.snippet?.title)
+        intent.putExtra("desc", item.snippet?.description)
+        startActivity(intent)
         }
     }
-}

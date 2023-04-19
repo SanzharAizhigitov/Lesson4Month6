@@ -91,7 +91,12 @@ data class Thumbnails(
     val standard: Standard
 )
 data class Video(
-    val etag: String,
-    val items: List<Item>,
-    val kind: String,
+    val items: List<Items>
 )
+data class Items(
+    val contentDetails: ContentDetails
+) {
+    data class ContentDetails(
+        val duration: String,
+    )
+}
